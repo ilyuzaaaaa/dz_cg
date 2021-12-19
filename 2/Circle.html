@@ -1,0 +1,60 @@
+<HTML>
+<BODY>
+
+<canvas id='homework02' width='400px' height='400px' style='border:20px groove #8bb1c4'>
+</canvas>
+<script>
+
+const plot = function (x, y) {
+    ctx.fillStyle = '#a52a2a';
+    ctx.fillRect(x, y, 5, 5);
+};
+
+
+function Circle(x, y, radius) {
+    let xstart = 0,
+        ystart = radius,
+        gap = 0,
+        delta = (2 - 2 * radius);
+
+    while (ystart >= 0) {
+        plot(x + xstart, y - ystart);
+        plot(x - xstart, y - ystart);
+        plot(x - xstart, y + ystart);
+        plot(x + xstart, y + ystart);
+
+        gap = 2 * (delta + ystart) - 1;
+
+        if (delta < 0 && gap <= 0) {
+            xstart++;
+            delta += 2 * xstart + 1;
+            continue;
+        }
+        if (delta > 0 && gap > 0) {
+            ystart--;
+            delta -= 2 * ystart + 1;
+            continue;
+        }
+        xstart++;
+        delta += 2 * (xstart - ystart);
+        ystart--;
+    }
+}
+</script>
+
+<script>
+    let canvas = document.getElementById('homework02');
+    let ctx = canvas.getContext('2d');
+
+    const xstart = 200, ystart = 200;
+    const R = 180;
+
+    Circle(xstart,ystart,R);
+
+    setInterval(function () {
+        rotation(ctx, xstart, ystart, R)
+    }, 1000);
+</script>
+
+</BODY>
+</HTML>
